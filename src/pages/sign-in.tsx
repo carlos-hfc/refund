@@ -1,3 +1,4 @@
+import { Button } from "@/components/button"
 import { Input } from "@/components/input"
 
 export function SignIn() {
@@ -16,6 +17,8 @@ export function SignIn() {
         type="password"
         placeholder="123456"
       />
+
+      <Button>Entrar</Button>
     </form>
   )
 }
