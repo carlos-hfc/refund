@@ -1,5 +1,7 @@
+import { Button } from "@/components/button"
 import { Input } from "@/components/input"
 import { Select } from "@/components/select"
+import { Upload } from "@/components/upload"
 import { CATEGORIES, CATEGORIES_KEYS } from "@/utils/categories"
 
 export function Refund() {
@@ -19,19 +21,30 @@ export function Refund() {
         legend="Nome da solicitação"
       />
 
-      <Select
-        required
-        legend="Categoria"
-      >
-        {CATEGORIES_KEYS.map(category => (
-          <option
-            key={category}
-            value={category}
-          >
-            {CATEGORIES[category].name}
-          </option>
-        ))}
-      </Select>
+      <div className="flex gap-4">
+        <Select
+          required
+          legend="Categoria"
+        >
+          {CATEGORIES_KEYS.map(category => (
+            <option
+              key={category}
+              value={category}
+            >
+              {CATEGORIES[category].name}
+            </option>
+          ))}
+        </Select>
+
+        <Input
+          required
+          legend="Valor"
+        />
+      </div>
+
+      <Upload />
+
+      <Button type="submit">Enviar</Button>
     </form>
   )
 }
