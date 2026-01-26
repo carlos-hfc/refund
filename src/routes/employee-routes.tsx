@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router"
 
 import { AppLayout } from "@/layouts/app-layout"
+import { Confirm } from "@/pages/confirm"
 import { NotFound } from "@/pages/not-found"
 import { Refund } from "@/pages/refund"
 
@@ -14,6 +15,10 @@ export function EmployeeRoutes() {
         <Route
           path="/"
           element={<Refund />}
+        />
+        <Route
+          path="/confirm"
+          element={<Confirm />}
         />
         <Route
           path="*"
