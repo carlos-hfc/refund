@@ -1,3 +1,5 @@
+import type { UserResponse } from "@/@types/user"
+
 import { api } from "./api"
 
 interface SignInRequest {
@@ -5,15 +7,7 @@ interface SignInRequest {
   password: string
 }
 
-interface SignInResponse {
-  token: string
-  user: {
-    id: string
-    email: string
-    name: string
-    role: string
-  }
-}
+type SignInResponse = UserResponse
 
 export async function signIn({ email, password }: SignInRequest) {
   const response = await api.post<SignInResponse>("/sessions", {
