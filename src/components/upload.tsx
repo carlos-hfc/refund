@@ -15,7 +15,7 @@ export function Upload({ filename = null, ...props }: UploadProps) {
         <input
           type="file"
           id="upload"
-          className="hidden"
+          className="hidden peer"
           {...props}
         />
 
@@ -25,7 +25,7 @@ export function Upload({ filename = null, ...props }: UploadProps) {
 
         <label
           htmlFor="upload"
-          className="flex h-12 px-4 items-center bg-green-100 rounded-lg cursor-pointer disabled:opacity-50 hover:bg-green-200 transition ease-linear"
+          className="flex h-12 px-4 items-center bg-green-100 rounded-lg cursor-pointer peer-disabled:opacity-50 peer-disabled:pointer-events-none hover:bg-green-200 transition ease-linear"
         >
           <img
             src={uploadImg}

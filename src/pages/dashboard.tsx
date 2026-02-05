@@ -29,9 +29,9 @@ export function Dashboard() {
         </Button>
       </form>
 
-      <div className="mt-6 flex flex-col gap-4 max-h-85.5 overflow-y-auto">
+      <div className="my-6 flex flex-col gap-4 max-h-85.5 overflow-y-auto">
         <RefundItem
-          to=""
+          to="/refund/1"
           data={EXAMPLE}
         />
       </div>
