@@ -1,11 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { AxiosError } from "axios"
 import { useForm } from "react-hook-form"
-import { Link, useNavigate } from "react-router"
+import { Link } from "react-router"
 import z from "zod"
 
 import { Button } from "@/components/button"
 import { Input } from "@/components/input"
+import { useAuth } from "@/contexts/auth-context"
 import { signIn } from "@/services/sign-in"
 
 const signInSchema = z.strictObject({
@@ -24,16 +25,16 @@ export function SignIn() {
     resolver: zodResolver(signInSchema),
   })
 
-  const navigate = useNavigate()
+  const { save } = useAuth()
 
   async function handleSignIn(data: SignInSchema) {
     try {
-      const {} = await signIn({
+      const { token, user } = await signIn({
         email: data.email,
         password: data.password,
       })
 
-      navigate("/")
+      save({ token, user })
     } catch (error) {
       if (error instanceof z.ZodError) {
         return alert(error.issues[0].message)
