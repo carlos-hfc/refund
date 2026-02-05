@@ -1,6 +1,7 @@
 import searchImg from "@/assets/search.svg"
 import { Button } from "@/components/button"
 import { Input } from "@/components/input"
+import { Pagination } from "@/components/pagination"
 import { RefundItem } from "@/components/refund-item"
 import { CATEGORIES } from "@/utils/categories"
 
@@ -34,6 +35,13 @@ export function Dashboard() {
           data={EXAMPLE}
         />
       </div>
+
+      <Pagination
+        current={1}
+        totalPages={10}
+        onNext={() => {}}
+        onPrev={() => {}}
+      />
     </div>
   )
 }

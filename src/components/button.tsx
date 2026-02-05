@@ -9,7 +9,7 @@ const variants = {
   button: {
     base: "h-12",
     icon: "size-12",
-    iconSmall: "size-10",
+    iconSmall: "size-8",
   },
 }
 
@@ -26,7 +26,7 @@ export function Button({
       type={type}
       data-loading={isLoading}
       className={classMerge(
-        "flex items-center justify-center rounded-lg bg-green-100 text-white cursor-pointer not-data-[loading=true]:hover:bg-green-200 transition ease-linear data-[loading=true]:opacity-50 data-[loading=true]:cursor-progress",
+        "flex items-center justify-center rounded-lg bg-green-100 text-white cursor-pointer not-data-[loading=true]:hover:bg-green-200 transition ease-linear select-none data-[loading=true]:opacity-50 data-[loading=true]:cursor-progress disabled:opacity-50 disabled:pointer-events-none",
         variants.button[variant],
         className,
       )}
