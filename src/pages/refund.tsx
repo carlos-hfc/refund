@@ -1,7 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useQuery } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import { useForm } from "react-hook-form"
-import { Link, useNavigate, useParams } from "react-router"
+import { Link, Navigate, useNavigate, useParams } from "react-router"
 import z from "zod"
 
 import fileImg from "@/assets/file.svg"
@@ -10,6 +11,7 @@ import { Input } from "@/components/input"
 import { Select } from "@/components/select"
 import { Upload } from "@/components/upload"
 import { createRefund } from "@/services/create-refund"
+import { getRefund } from "@/services/get-refund"
 import { uploadReceipt } from "@/services/upload-receipt"
 import { CATEGORIES, CATEGORIES_KEYS } from "@/utils/categories"
 
@@ -43,6 +45,11 @@ export function Refund() {
   const { id } = useParams<"id">()
   const navigate = useNavigate()
 
+  const { data, isLoading } = useQuery({
+    queryKey: ["refunds", id],
+    queryFn: () => getRefund({ id: String(id) }),
+  })
+
   const {
     register,
     handleSubmit,
@@ -50,6 +57,12 @@ export function Refund() {
     watch,
   } = useForm<RefundSchema>({
     resolver: zodResolver(refundSchema),
+    values: {
+      amount: String(data?.amount) ?? "",
+      category: data?.category ?? "",
+      name: data?.name ?? "",
+      file: null,
+    },
   })
 
   async function handleRefund(data: RefundSchema) {
@@ -78,6 +91,8 @@ export function Refund() {
   }
 
   const file = watch("file") as FileList
+
+  if (!isLoading && !data) return <Navigate to="/" />
 
   return (
     <form
@@ -122,9 +137,9 @@ export function Refund() {
         />
       </div>
 
-      {id ? (
+      {id && data?.filename ? (
         <Link
-          to=""
+          to={`http://localhost:3333/uploads/${data.filename}`}
           target="_blank"
           className="text-sm text-green-100 font-semibold flex items-center justify-center gap-2 my-6 hover:opacity-70 transition ease-linear"
         >
@@ -144,7 +159,14 @@ export function Refund() {
       )}
 
       <div className="flex items-center gap-2">
-        {id && <Button className="w-full">Voltar</Button>}
+        {id && (
+          <Button
+            className="w-full"
+            onClick={() => navigate("/")}
+          >
+            Voltar
+          </Button>
+        )}
         <Button
           className="w-full"
           type="submit"
