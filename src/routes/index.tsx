@@ -7,10 +7,8 @@ import { AuthRoutes } from "./auth-routes"
 import { EmployeeRoutes } from "./employee-routes"
 import { ManagerRoutes } from "./manager-routes"
 
-const IS_LOADING = false
-
 export function Routes() {
-  const { session } = useAuth()
+  const { session, isLoading } = useAuth()
 
   function Route() {
     switch (session?.user.role) {
@@ -23,7 +21,7 @@ export function Routes() {
     }
   }
 
-  if (IS_LOADING) return <Loading />
+  if (isLoading) return <Loading />
 
   return (
     <BrowserRouter>
