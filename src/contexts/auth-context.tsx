@@ -7,6 +7,7 @@ import {
 } from "react"
 
 import type { UserResponse } from "@/@types/user"
+import { api } from "@/services/api"
 
 interface AuthContextProps {
   isLoading: boolean
@@ -35,6 +36,9 @@ export function AuthProvider({ children }: PropsWithChildren) {
       JSON.stringify(data.user),
     )
     sessionStorage.setItem(`${SESSION_STORAGE_KEY}:token`, data.token)
+
+    api.defaults.headers.common.Authorization = `Bearer ${data.token}`
+
     setSession(data)
   }
 
@@ -43,6 +47,8 @@ export function AuthProvider({ children }: PropsWithChildren) {
     const token = sessionStorage.getItem(`${SESSION_STORAGE_KEY}:token`)
 
     if (token && user) {
+      api.defaults.headers.common.Authorization = `Bearer ${token}`
+
       setSession({
         token,
         user: JSON.parse(user),
