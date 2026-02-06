@@ -1,10 +1,15 @@
+import { QueryClientProvider } from "@tanstack/react-query"
+
 import { AuthProvider } from "./contexts/auth-context"
+import { queryClient } from "./lib/react-query"
 import { Routes } from "./routes"
 
 export function App() {
   return (
-    <AuthProvider>
-      <Routes />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
+    </QueryClientProvider>
   )
 }
